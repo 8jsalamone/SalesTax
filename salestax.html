@@ -10,12 +10,12 @@
   <section id="widget">
     <header>
       <h1>Illinois Sales Tax Calculator</h1>
-      <h4>price of goods and services changes based on the city or county purchased.</h4>
+      <h4>Price of goods and services changes based on the city or county purchased.</h4>
     </header>
     <div id="user-input">
       <div class="options">
         <label id="price">Price</label>
-        <input type="" name="" value=""></input>
+        <input type="text" name="" value=""></input>
       </div>
       <div class="options">
         <label id="type">Shipping</label><br><br>
@@ -26,7 +26,7 @@
           </div>
       <div class="options">
         <label id="city">City</label>
-        <input type="" name="" value="">
+        <input type="text" name="" value="">
       </div>
       <button onclick="calculate()">Calculate</button>
     </div>
@@ -38,20 +38,22 @@
 <script type="text/javascript">
 
 function calculate(){
-
+const doc = document;
   //Query select your information
-  let price = doc.querySelector('#price');
-  let shippingType = doc.querySelctor('#shipping');
-  let shippingLocation = doc.querySelctor('#city');
+  let price = Number(doc.querySelector('#price').value);
+  let shippingType = doc.querySelector('#shipping').value;
+  let shippingLocation = doc.querySelector('#city').value;
+  let answer=doc.querySelector('#answer');
+  let Type;
 
   if(shippingType == 'Express'){
-    shippingType=8.99
+    Type=8.99;
   }
   if(shippingType == 'Priority'){
-    shippingType=4.99
+    Type=4.99;
   }
   if(shippingType == 'Standard'){
-    shippingType=2.99
+    Type=2.99;
   }
 
   //conditionally choose the shipping tax
@@ -97,6 +99,11 @@ function calculate(){
   else if(tax7500.includes(shippingLocation)){
     shippingTax = 1.075;
   }
-  let totalcost = (price)(1.0625)+(shippingType)(shippingTax)
+  let totalCost = (price)*(1.0625)+(Type)*(shippingTax);
+
+    answer.innerHTML = '$' + totalCost;
+
+
   </script>
+
 </html>
