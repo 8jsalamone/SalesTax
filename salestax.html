@@ -23,6 +23,7 @@
           <option value="Standard">Standard</option>
           <option value="Express">Express</option>
           <option value="Priority">Priority</option>
+        </select>
           </div>
       <div class="options">
         <label id="city">City</label>
@@ -40,7 +41,8 @@
 function calculate(){
 const doc = document;
   //Query select your information
-  let price = Number(doc.querySelector('#price').value);
+  let price = doc.querySelector('#price').value;
+  let cost = Number(price);
   let shippingType = doc.querySelector('#shipping').value;
   let shippingLocation = doc.querySelector('#city').value;
   let answer=doc.querySelector('#answer');
@@ -49,10 +51,10 @@ const doc = document;
   if(shippingType == 'Express'){
     Type=8.99;
   }
-  if(shippingType == 'Priority'){
+  else if(shippingType == 'Priority'){
     Type=4.99;
   }
-  if(shippingType == 'Standard'){
+  else if(shippingType == 'Standard'){
     Type=2.99;
   }
 
@@ -71,6 +73,7 @@ const doc = document;
 
   if(tax10750.includes(shippingLocation)){
     shippingTax = 1.75;
+
   }
   else if(tax10250.includes(shippingLocation)){
     shippingTax = 1.25;
@@ -99,10 +102,9 @@ const doc = document;
   else if(tax7500.includes(shippingLocation)){
     shippingTax = 1.075;
   }
-  let totalCost = (price)*(1.0625)+(Type)*(shippingTax);
+  let totalCost = (cost*1.0625)+(Type*shippingTax);
 
-    answer.innerHTML = '$' + totalCost;
-
+  answer.innerHTML = '$' + totalCost;
 
   </script>
 
