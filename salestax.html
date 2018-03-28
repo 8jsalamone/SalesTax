@@ -14,8 +14,8 @@
     </header>
     <div id="user-input">
       <div class="options">
-        <label id="price">Price</label>
-        <input type="text" name="" value=""></input>
+        <label>Price</label>
+        <input id="price" type="text" name="" value=""></input>
       </div>
       <div class="options">
         <label id="type">Shipping</label><br><br>
@@ -29,7 +29,7 @@
         <label id="city">City</label>
         <input type="text" name="" value="">
       </div>
-      <button onclick="calculate()">Calculate</button>
+      <button onclick='calculate()'>Calculate</button>
     </div>
     <footer>
       <span id="answer"></span>
@@ -38,45 +38,44 @@
 </body>
 <script type="text/javascript">
 
-function calculate(){
+function calculate() {
 const doc = document;
   //Query select your information
-  let price = doc.querySelector('#price').value;
-  let cost = Number(price);
+  let price = Number(doc.querySelector('#price').value);
+  //let cost = Number(price);
   let shippingType = doc.querySelector('#shipping').value;
   let shippingLocation = doc.querySelector('#city').value;
-  let answer=doc.querySelector('#answer');
-  let Type;
+  let answer = doc.querySelector('#answer');
 
   if(shippingType == 'Express'){
-    Type=8.99;
+    shippingType=8.99;
   }
   else if(shippingType == 'Priority'){
-    Type=4.99;
+    shippingType=4.99;
   }
   else if(shippingType == 'Standard'){
-    Type=2.99;
+    shippingType=2.99;
   }
 
   //conditionally choose the shipping tax
-  let shippingTax
-  let tax10750 = ['Cicero']
-  let tax10250 = ['Chicago','Elgin','Skokie']
+  let shippingTax;
+  let tax10750 = ['Cicero'];
+  let tax10250 = ['Chicago','Elgin','Skokie'];
   let tax10000 = ['Peoria','Arlington Heights','Schaumburg','Evanston','Palatine'];
-  let tax9750 = ['Orland Park']
-  let tax9250 = ['Decatur']
-  let tax9000 = ['Champaign']
-  let tax8750 = ['Bloomington','Joliet']
-  let tax8500 = ['Bolingbrook','Springfield']
-  let tax8250 = ['Rockford', 'Waukegan','Aurora']
-  let tax7500 = ['Naperville']
+  let tax9750 = ['Orland Park'];
+  let tax9250 = ['Decatur'];
+  let tax9000 = ['Champaign'];
+  let tax8750 = ['Bloomington','Joliet'];
+  let tax8500 = ['Bolingbrook','Springfield'];
+  let tax8250 = ['Rockford', 'Waukegan','Aurora'];
+  let tax7500 = ['Naperville'];
 
   if(tax10750.includes(shippingLocation)){
-    shippingTax = 1.75;
+    shippingTax = 1.1075;
 
   }
   else if(tax10250.includes(shippingLocation)){
-    shippingTax = 1.25;
+    shippingTax = 1.1025;
   }
   else if(tax10000.includes(shippingLocation)){
     shippingTax = 1.10;
@@ -102,9 +101,14 @@ const doc = document;
   else if(tax7500.includes(shippingLocation)){
     shippingTax = 1.075;
   }
-  let totalCost = (cost*1.0625)+(Type*shippingTax);
+  else{
+    shippingTax = 1.1075;
+  }
+  let totalCost = (price*1.0625)+(shippingType*shippingTax);
 
-  answer.innerHTML = '$' + totalCost;
+  answer.innerHTML = "$"+Math.round(100*totalCost)/100;
+
+}
 
   </script>
 
